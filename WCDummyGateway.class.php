@@ -31,6 +31,13 @@ class WC_Payment_Gateway_Dummy extends WC_Payment_Gateway
                 'label' => __('Enable dummy payment gateway', 'woocommerce'),
                 'default' => 'no'
             ),
+	    'title' => array(
+                        'title'       => __( 'Title', 'woocommerce' ),
+                        'type'        => 'text',
+                        'description' => __( 'Payment method title that the customer will see on your website.', 'woocommerce' ),
+                        'default'     => __( 'Pasarela de prueba, no usar', 'woocommerce' ),
+                        'desc_tip'    => true,
+                ),
             'user_role' => array(
                 'title' => __('User role', 'woocommerce'),
                 'type' => 'select',
