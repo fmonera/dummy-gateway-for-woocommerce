@@ -65,6 +65,7 @@ class WC_Payment_Gateway_Dummy extends WC_Payment_Gateway
 
         $this->user_role = !empty($this->settings['user_role']) && 'everyone' === $this->settings['user_role'] ? 'everyone' : 'administrator';
 	$this->user_email = $this->settings['user_email'];
+	$this->title = $this->settings['title'];
     }
 
     public function is_available()
