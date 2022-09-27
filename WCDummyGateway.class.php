@@ -87,13 +87,13 @@ class WC_Payment_Gateway_Dummy extends WC_Payment_Gateway
 	    if( $this->user_email === $email ) $email_access = true;
 	}
 
-        $is_available = parent::is_available();
+        $is_available_parent = parent::is_available();
 
 	$is_available_admin = false;
-        if ($is_available && $this->user_role === 'administrator') {
+        if ($is_available_parent && $this->user_role === 'administrator') {
             $is_available_admin = current_user_can('administrator');
         }
-	$is_available = $is_available_admin || $email_access;
+	$is_available = $is_available_parent && ($is_available_admin || $email_access);
 
         return $is_available;
     }
