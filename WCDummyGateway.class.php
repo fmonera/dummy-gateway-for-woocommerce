@@ -41,22 +41,44 @@ class WC_Payment_Gateway_Dummy extends WC_Payment_Gateway
                     'everyone' => __('Everyone', 'woocommerce')
                 ),
                 'default' => 'administrator'
-            )
+	    ),
+	    'user_email' => array(
+	        'title' => __('User email', 'woocommerce'),
+		'type' => 'text',
+		'description' => __('A single email for which dummy gateway should be accesible, despite the user role.', 'woocommerce'),
+		'desc_tip' => true,
+		'default' => ''
+	    )
         );
     }
 
     public function init_settings()
     {
         parent::init_settings();
+
         $this->user_role = !empty($this->settings['user_role']) && 'everyone' === $this->settings['user_role'] ? 'everyone' : 'administrator';
+	$this->user_email = $this->settings['user_email'];
     }
 
     public function is_available()
     {
+	global $current_user;
+	get_currentuserinfo();
+
+	$email_access = false;
+	if ($this->user_email != "") {
+            $email = (string) $current_user->user_email;    
+	    if( $this->user_email === $email ) $email_access = true;
+	}
+
         $is_available = parent::is_available();
+
+	$is_available_admin = false;
         if ($is_available && $this->user_role === 'administrator') {
-            $is_available = current_user_can('administrator');
+            $is_available_admin = current_user_can('administrator');
         }
+	$is_available = $is_available_admin || $email_access;
+
         return $is_available;
     }
 
