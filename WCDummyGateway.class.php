@@ -35,7 +35,14 @@ class WC_Payment_Gateway_Dummy extends WC_Payment_Gateway
                         'title'       => __( 'Title', 'woocommerce' ),
                         'type'        => 'text',
                         'description' => __( 'Payment method title that the customer will see on your website.', 'woocommerce' ),
-                        'default'     => __( 'Pasarela de prueba, no usar', 'woocommerce' ),
+                        'default'     => __( 'This is a testing Payment Gateway, do not use.', 'woocommerce' ),
+                        'desc_tip'    => true,
+                ),
+	    'description' => array(
+                        'title'       => __( 'Description', 'woocommerce' ),
+                        'type'        => 'textarea',
+                        'description' => __( 'Payment method description that the customer will see on your website.', 'woocommerce' ),
+                        'default'     => __( 'This is a testing Payment Gateway, do not use.', 'woocommerce' ),
                         'desc_tip'    => true,
                 ),
             'user_role' => array(
@@ -66,6 +73,7 @@ class WC_Payment_Gateway_Dummy extends WC_Payment_Gateway
         $this->user_role = !empty($this->settings['user_role']) && 'everyone' === $this->settings['user_role'] ? 'everyone' : 'administrator';
 	$this->user_email = $this->settings['user_email'];
 	$this->title = $this->settings['title'];
+        $this->description = $this->settings['description'];
     }
 
     public function is_available()
